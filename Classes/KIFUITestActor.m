@@ -819,8 +819,17 @@
   
     CGRect elementFrame = [viewToSwipe.windowOrIdentityWindow convertRect:element.accessibilityFrame toView:viewToSwipe];
     CGPoint swipeStart = CGPointCenteredInRect(elementFrame);
+    
+    if (direction == KIFSwipeDirectionLeftEdgeToRight) {
+        swipeStart = CGPointMake(0, swipeStart.y);
+    } else if (direction == KIFSwipeDirectionRightEdgeToLeft) {
+        swipeStart = CGPointMake(viewToSwipe.frame.size.width, swipeStart.y);
+    }
+    
     KIFDisplacement swipeDisplacement = KIFDisplacementForSwipingInDirection(direction);
-  
+    NSLog(@"From %@, To %@", NSStringFromCGPoint(swipeStart),
+          NSStringFromCGPoint(swipeDisplacement));
+    
     [viewToSwipe dragFromPoint:swipeStart displacement:swipeDisplacement steps:kNumberOfPointsInSwipePath];
 }
 

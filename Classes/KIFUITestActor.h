@@ -10,7 +10,6 @@
 #import "KIFTestActor.h"
 #import <UIKit/UIKit.h>
 #import "UIView-KIFAdditions.h"
-#import "UIView-Debugging.h"
 
 #define tester KIFActorWithClass(KIFUITestActor)
 
@@ -24,7 +23,9 @@
  */
 typedef NS_ENUM(NSUInteger, KIFSwipeDirection) {
     KIFSwipeDirectionRight,
+    KIFSwipeDirectionRightEdgeToLeft,
     KIFSwipeDirectionLeft,
+    KIFSwipeDirectionLeftEdgeToRight,
     KIFSwipeDirectionUp,
     KIFSwipeDirectionDown
 };
@@ -51,8 +52,10 @@ static inline KIFDisplacement KIFDisplacementForSwipingInDirection(KIFSwipeDirec
             // swipe if you move purely horizontally or vertically, so need a
             // slight orthogonal offset too.
         case KIFSwipeDirectionRight:
+        case KIFSwipeDirectionLeftEdgeToRight:
             return CGPointMake(kKIFMajorSwipeDisplacement, kKIFMinorSwipeDisplacement);
         case KIFSwipeDirectionLeft:
+        case KIFSwipeDirectionRightEdgeToLeft:
             return CGPointMake(-kKIFMajorSwipeDisplacement, kKIFMinorSwipeDisplacement);
         case KIFSwipeDirectionUp:
             return CGPointMake(kKIFMinorSwipeDisplacement, -kKIFMajorSwipeDisplacement);
